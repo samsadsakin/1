@@ -1,11 +1,11 @@
 <script>
-  $("#invoiceForm").submit(function (e) {
-    e.preventDefault(); // Stop normal submission
+  document.getElementById("invoiceForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // Prevent default form submission
 
-    const form = document.getElementById("invoiceForm");
+    const form = e.target;
     const formData = new FormData(form);
 
-    // Convert to URL-encoded format
+    // Convert form data to URL-encoded format
     const formParams = new URLSearchParams();
     for (const pair of formData.entries()) {
       formParams.append(pair[0], pair[1]);
@@ -18,14 +18,17 @@
       },
       body: formParams.toString()
     })
+    .then(response => {
+      if (!response.ok) throw new Error("Network response was not ok.");
+      return response.text(); // Can be ignored
+    })
     .then(() => {
-      alert("Data saved successfully!");
+      // Success! Reload the page
       location.reload();
     })
     .catch(error => {
-      console.error("Error:", error);
-      alert("Failed to save. See console.");
+      console.error("Error submitting form:", error);
+      alert("Failed to submit data. See console for details.");
     });
   });
 </script>
-
