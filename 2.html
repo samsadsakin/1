@@ -40,7 +40,8 @@
     
 
     <div class="container ">
-      <form method="post" action="https://script.google.com/macros/s/AKfycbzFEa5RVObSa9N8Y0KeWUzrQJ-ElTA8BfwZSgeOBY0S6OCQ5bKYu2QJTQbVvH_4IvA-Iw/exec">
+      <form id="invoiceForm">
+
         
 
         <div class="card">
@@ -203,6 +204,25 @@
   
   
   
-  
+  <script>
+  $("#invoiceForm").submit(function (e) {
+    e.preventDefault(); // Stop normal form submission
+
+    const form = document.getElementById("invoiceForm");
+    const formData = new FormData(form);
+
+    fetch("https://script.google.com/macros/s/AKfycbw7vYUUSEod6Mg3zeE7__iFfoLMub7BtE8wLapZFS0gEq29BuB1LuE5GZV4zFEORh3yoQ/exec", {
+      method: "POST",
+      body: formData
+    })
+    .then(() => {
+      // ✅ Reload the page after success
+      location.reload();
+    })
+    .catch(error => {
+      console.error("Submission failed:", error);
+    });
+  });
+</script>  
   </body>
 </html>
