@@ -1,38 +1,31 @@
 <script>
   document.getElementById("invoiceForm").addEventListener("submit", function(e) {
-    e.preventDefault(); // Stop default form action
+    e.preventDefault();
 
     const form = e.target;
     const formData = new FormData(form);
 
-    const formParams = new URLSearchParams();
+    const params = new URLSearchParams();
     for (const pair of formData.entries()) {
-      formParams.append(pair[0], pair[1]);
+      params.append(pair[0], pair[1]);
     }
 
-    console.log("Submitting form data to script...");
-
-    fetch("https://script.google.com/macros/s/AKfycbx5V3FkO9W-37F2s1F7pWrmnDfbeBuL6gg-kxJSpl2a2uTTMMUgyNWYPiLkeB9AhpMt0A/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbw7vYUUSEod6Mg3zeE7__iFfoLMub7BtE8wLapZFS0gEq29BuB1LuE5GZV4zFEORh3yoQ/exec", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: formParams.toString()
+      body: params.toString()
     })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error("Server returned " + response.status);
-      }
-      return response.text();
-    })
+    .then(response => response.text())
     .then(data => {
-      console.log("Success response:", data);
-      alert("Data saved successfully!");
-      location.reload(); // Only reload after success
+      console.log("Success:", data);
+      alert("Data submitted!");
+      location.reload(); // Only reload after a successful response
     })
     .catch(error => {
-      console.error("Error submitting form:", error);
-      alert("There was a problem saving your data. See the console for details.");
+      console.error("Error:", error);
+      alert("Failed to submit. See console for error.");
     });
   });
 </script>
