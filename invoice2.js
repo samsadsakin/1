@@ -1,22 +1,30 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
   $("#invoiceForm").submit(function (e) {
-    e.preventDefault(); // Prevent default form submit
+    e.preventDefault(); // Stop normal submission
 
     const form = document.getElementById("invoiceForm");
     const formData = new FormData(form);
 
+    // Convert to URL-encoded format
+    const formParams = new URLSearchParams();
+    for (const pair of formData.entries()) {
+      formParams.append(pair[0], pair[1]);
+    }
+
     fetch("https://script.google.com/macros/s/AKfycbw7vYUUSEod6Mg3zeE7__iFfoLMub7BtE8wLapZFS0gEq29BuB1LuE5GZV4zFEORh3yoQ/exec", {
       method: "POST",
-      body: formData
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formParams.toString()
     })
     .then(() => {
       alert("Data saved successfully!");
-      location.reload(); // Refresh the page
+      location.reload();
     })
     .catch(error => {
-      console.error("Submission failed:", error);
-      alert("Error saving data");
+      console.error("Error:", error);
+      alert("Failed to save. See console.");
     });
   });
 </script>
