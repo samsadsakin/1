@@ -289,7 +289,7 @@ function GetRate(v) { //01
 	  
 <script>
 function disableSubmit(btn, event) {
-  event.preventDefault(); // ডিফল্ট সাবমিশন বন্ধ করুন
+  event.preventDefault(); // ডিফল্ট ফর্ম সাবমিশন বন্ধ করুন
 
   const gstField = document.getElementById("fGST");
   const invnoField = document.querySelector('input[name="invno"]');
@@ -315,10 +315,15 @@ function disableSubmit(btn, event) {
   fetch(form.action, {
     method: 'POST',
     body: formData,
-    mode: 'no-cors' // 🔥 গুরুত্বপূর্ণ: CORS সমস্যা এড়াতে
+    mode: 'no-cors' // CORS সমস্যা এড়াতে
   })
   .then(() => {
     alert("✅ ইনভয়েস সফলভাবে সংরক্ষণ করা হয়েছে");
+    
+    // ✅ 1.5 সেকেন্ড পরে পেজ রিলোড
+    setTimeout(() => {
+      location.reload();
+    }, 1500);
   })
   .catch(error => {
     console.error("Error:", error);
