@@ -287,9 +287,10 @@ function GetRate(v) { //01
       </form>
     </div>
 	  
- <script>
+ 
+<script>
 function disableSubmit(btn, event) {
-  event.preventDefault(); // Stop the default form submission
+  event.preventDefault(); // Stop default form submission
 
   const gstField = document.getElementById("fGST");
   const invnoField = document.querySelector('input[name="invno"]');
@@ -316,18 +317,16 @@ function disableSubmit(btn, event) {
     method: 'POST',
     body: formData
   })
-  .then(response => response.json())
-  .then(data => {
-    // Assuming your Apps Script returns: { redirect: "https://samsadsakin.github.io/1/B" }
-    if (data.redirect) {
-      window.open(data.redirect, '_blank'); // ✅ Open in new tab
+  .then(response => {
+    if (response.ok) {
+      alert("✅ ইনভয়েস সফলভাবে সংরক্ষণ করা হয়েছে"); // Bengali: Invoice saved successfully
     } else {
-      alert("Data saved, but no redirect received.");
+      alert("❌ সার্ভার থেকে সফল জবাব পাওয়া যায়নি"); // Server error
     }
   })
   .catch(error => {
     console.error("Error:", error);
-    alert("Something went wrong.");
+    alert("❌ ডেটা পাঠাতে সমস্যা হয়েছে"); // Error sending data
   })
   .finally(() => {
     btn.disabled = false;
@@ -335,6 +334,7 @@ function disableSubmit(btn, event) {
   });
 }
 </script>
+
 
 
 
