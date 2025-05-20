@@ -286,21 +286,31 @@ function GetRate(v) { //01
       </form>
     </div>
 	  
-   <script>
+  <script>
 function disableSubmit(btn) {
   const gstField = document.getElementById("fGST");
+  const invnoField = document.querySelector('input[name="invno"]');
 
-  if (!gstField.value.trim()) {
-    alert("Paid Amt পূরণ করুন ");
-    gstField.focus();
-    return false; // stop form submission
+  if (!invnoField.value.trim()) {
+    alert("Invoice Number এর জন্য অপেক্ষা করুন.");
+    invnoField.focus();
+    return false;
   }
 
+  if (!gstField.value.trim()) {
+    alert("Paid Amt পূরণ করুন .");
+    gstField.focus();
+    return false;
+  }
+
+  // Prevent multiple submissions
   btn.disabled = true;
-  btn.innerText = 'অপেক্ষা করুন...'; // optional feedback
-  btn.form.submit(); // still submit the form
+  btn.innerText = 'Saving...';
+  btn.form.submit();
 }
 </script>
+
+
 
     <!-- Bootstrap Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
