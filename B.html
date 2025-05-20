@@ -287,9 +287,9 @@ function GetRate(v) { //01
       </form>
     </div>
 	  
- <script>
+<script>
 function disableSubmit(btn, event) {
-  event.preventDefault(); // Stop the default form submission
+  event.preventDefault(); // ডিফল্ট সাবমিশন বন্ধ করুন
 
   const gstField = document.getElementById("fGST");
   const invnoField = document.querySelector('input[name="invno"]');
@@ -314,20 +314,15 @@ function disableSubmit(btn, event) {
 
   fetch(form.action, {
     method: 'POST',
-    body: formData
+    body: formData,
+    mode: 'no-cors' // 🔥 গুরুত্বপূর্ণ: CORS সমস্যা এড়াতে
   })
-  .then(response => response.json())
-  .then(data => {
-    // Assuming your Apps Script returns: { redirect: "https://samsadsakin.github.io/1/B" }
-    if (data.redirect) {
-      window.open(data.redirect, '_blank'); // ✅ Open in new tab
-    } else {
-      alert("Data saved, but no redirect received.");
-    }
+  .then(() => {
+    alert("✅ ইনভয়েস সফলভাবে সংরক্ষণ করা হয়েছে");
   })
   .catch(error => {
     console.error("Error:", error);
-    alert("✅ ইনভয়েস সফলভাবে সংরক্ষণ করা হয়েছে");
+    alert("❌ ডেটা পাঠাতে সমস্যা হয়েছে");
   })
   .finally(() => {
     btn.disabled = false;
@@ -335,6 +330,7 @@ function disableSubmit(btn, event) {
   });
 }
 </script>
+
 
 
 
