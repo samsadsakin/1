@@ -289,7 +289,7 @@ function GetRate(v) { //01
 	  
  <script>
 function disableSubmit(btn, event) {
-  event.preventDefault(); // ✅ Stop the default submit action
+  event.preventDefault(); // Stop the default form submission
 
   const gstField = document.getElementById("fGST");
   const invnoField = document.querySelector('input[name="invno"]');
@@ -306,10 +306,33 @@ function disableSubmit(btn, event) {
     return;
   }
 
-  // Prevent multiple submissions
   btn.disabled = true;
   btn.innerText = 'Saving...';
-  btn.form.submit(); // ✅ Submit manually only once
+
+  const form = btn.form;
+  const formData = new FormData(form);
+
+  fetch(form.action, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Assuming your Apps Script returns: { redirect: "https://samsadsakin.github.io/1/B" }
+    if (data.redirect) {
+      window.open(data.redirect, '_blank'); // ✅ Open in new tab
+    } else {
+      alert("Data saved, but no redirect received.");
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("Something went wrong.");
+  })
+  .finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Save';
+  });
 }
 </script>
 
