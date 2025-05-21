@@ -231,7 +231,7 @@ function GetRate(v) { //01
                   <th>SL</th>                  
                   <th width="50%">Medicine</th>
                   <th class="text-end">Quantity</th>
-                  <th class="text-end">Rate</th>
+                  <th class="text-end">Rate_</th>
                   <th class="text-end">Dis%</th>
                   <th class="text-end">Amount</th>
                   <th class="NoPrint"></th>
@@ -239,10 +239,10 @@ function GetRate(v) { //01
               </thead>
               <tbody id="TBody">
                 <tr id="TRow" class="d-none">
-                 <td><input type="number" class="form-control text-end" name="invno"></td>
+                 <td><input type="number" class="form-control text-end" name="invno"  readonly></td>
                   
                   <th scope="row">1</th>
-                  <td width="40%">
+                  <td width="38%">
                     <input class="form-control" name="item_nm" list="mylist" autocomplete="off" onchange="GetRate(this)">
                     <datalist id="mylist"></datalist>
                   </td>
