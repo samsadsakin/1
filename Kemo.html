@@ -39,8 +39,39 @@ function BtnAdd()
     
 }
 
-
-
+nction Search()
+{
+        var no = $('#inv_no').val();                      //01
+        $.getJSON("AppScriptExcec?page=search&no="+no, 
+        function (data) {                                 //02
+          if (data == "NOT FOUND") {                      //03
+            alert('Invoice No. Not Found...');
+          }
+          else {                                          //04
+            var record = data;
+            var i = 0;
+            $.each(record, function(key, value) {         //05
+                  if (i == 0) {                           //06
+                      var dt = value[1].substring(0,10);  //07
+                      document.getElementsByName("inv_dt")[0].value = dt;
+                      document.getElementsByName("inv_no")[0].value = value[1];
+                      document.getElementsByName("cust_nm")[0].value = value[2];
+                      document.getElementsByName("cust_info")[0].value = value[3];
+                      document.getElementsByName("city")[0].value = value[4];
+                  }
+                  else {                                  //08  
+                       if (i > 1) BtnAdd();               //09
+                       document.getElementsByName("item_nm")[i].value = value[5];                  
+                                                          //10 
+                       document.getElementsByName("qty")[i].value     = value[6];
+                       document.getElementsByName("rate")[i].value    = value[7];
+                       document.getElementsByName("amt")[i].value     = value[8];
+                  }
+                  i = i + 1;
+            });
+          }
+        });
+}
 function BtnDel(v)
 {
     /*Delete Button*/
@@ -185,27 +216,18 @@ function GetRate(v) { //01
               <div class="col-8">
                 <div class="input-group mb-3">
                   <span class="input-group-text">Customer</span>
-                  <input type="text" class="form-control" name="cust_nm" placeholder="Customer Name">
+                  <input type="text" class="form-control" name="cust_nm" id="cust_nm" placeholder="Customer Name">
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-text">Cust.Info.</span>
-                  <input type="text" class="form-control" name="cust_info" placeholder="Phone Number/Address">
+                  <input type="text" class="form-control" name="cust_info" id="cust_info" placeholder="Phone Number/Address">
                 </div>
-                <div class="input-group mb-3">
-                  <span class="input-group-text">Seller ID</span>
-                  <input type="number" class="form-control" name="seller_nm" placeholder="Seller ID">
-                  <a href="https://docs.google.com/spreadsheets/d/13KpVguFvnOGnTEKRzDUGfJn6-CEnv6diojmBXv_F7Iw/edit?gid=1791266387#gid=1791266387">
-                    <button type="button" class="btn btn-sm btn-warning">📩 Sms </button>
-                  </a>
-                  <a href="https://docs.google.com/spreadsheets/d/16verSKq_tYJnjl0ZT2R5wbrEjlwLvFpyKi0qES_Id9E/edit?gid=1899307929#gid=1899307929">
-                    <button type="button" class="btn btn-sm btn-warning">🖨️ Print </button>
-                  </a>
-                </div>
+                
               </div>
               <div class="col-4">
                 <div class="input-group mb-3">
                   <span class="input-group-text">Inv. No</span>
-                  <input type="text" class="form-control" name="invno" placeholder="Invoice No" autocomplete="off">
+                  <input type="text" class="form-control" name="invno" placeholder="Invoice No" id="invno" autocomplete="off">
                   <div class="input-group-append">
                      <button class="btn btn-outline-secondary" type="button" onclick="Search();"><i class="bi bi-search"></i></button>. 
 			  
@@ -213,23 +235,11 @@ function GetRate(v) { //01
                   <div class="valid-feedback">Invoice No. is OK</div>
                 </div>
 		      
-		      <div class="input-group mb-3">
+		<div class="input-group mb-3">
                   <span class="input-group-text">Inv. Date</span>
                   <input type="date" class="form-control" name="inv_dt">
                 </div>
-                <div class="input-group mb-3">
-                  <a href="https://script.google.com/macros/s/AKfycbwnfrDThO953Mz2TXG7c6YT2P38pxgE-OznYb2Bf6UhUer44keZLRva163i_wFvY6o/exec">
-                    <button type="button" class="btn btn-sm btn-success">Today's Sale</button>
-                  </a>
-                  <a href="https://docs.google.com/spreadsheets/d/1ez7Engh5VH1FjqqgCv-Akjw0zL_fOhXcgpLuraErZrY/edit?gid=1373134832#gid=1373134832">
-                    <button type="button" class="btn btn-sm btn-success">Search</button>
-                  </a>
-		  <a href="https://docs.google.com/spreadsheets/d/1ez7Engh5VH1FjqqgCv-Akjw0zL_fOhXcgpLuraErZrY/edit?gid=1352163434#gid=1352163434">
-                    <button type="button" class="btn btn-sm btn-success">Check Memo</button>
-                  </a>	
-		   
-		
-                </div>
+                
               </div>
             </div>
 
