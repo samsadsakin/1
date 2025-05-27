@@ -42,7 +42,7 @@ function BtnAdd()
 function Search()
 {
         var no = $('#invno').val();                      //01
-        $.getJSON("https://script.google.com/macros/s/AKfycbzFSt6OrRoBUHYWp1QOQN7VODd12h-YjzPFujtTKo8eKcLj9YeAPDns2RrU_fRfrqas/exec?page=search&no="+no, 
+        $.getJSON("https://script.google.com/macros/s/AKfycbx63yquYv7rYdosPqffETw_NRl13J2BmdAxjC2zctTbsG8AHql7MCc942sVfXvG2g/exec?page=search&no="+no, 
         function (data) {                                 //02
           if (data == "NOT FOUND") {                      //03
             alert('Invoice No. Not Found...');
@@ -161,7 +161,7 @@ function SetCurrentDate()
 
 function MaxInv()
 {
-        $.getJSON("https://script.google.com/macros/s/AKfycbzau8k7sid8DUKmRhlWE0ZwMSetT9D2k-k0bOgL7aUbFsTEMO2ykLItPodBAXOfUYlu/exec?page=max", 
+        $.getJSON("https://script.google.com/macros/s/AKfycbx63yquYv7rYdosPqffETw_NRl13J2BmdAxjC2zctTbsG8AHql7MCc942sVfXvG2g/exec?page=max", 
         function (data) {
             
              $('input[name="invno"]').val(data);
