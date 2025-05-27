@@ -57,16 +57,21 @@ function Search()
                       document.getElementsByName("inv_no")[0].value = value[1];
                       document.getElementsByName("cust_nm")[0].value = value[2];
                       document.getElementsByName("cust_num")[0].value = value[3];
-		      document.getElementsByName("cust_info")[0].value = value[4];                      
+		      document.getElementsByName("cust_info")[0].value = value[4];  
+		      document.getElementsByName("fGST")[0].value = value[5];
+                      document.getElementsByName("due")[0].value = value[6];
+		      
+
+			  
                   }
                   else {                                  //08  
                        if (i > 1) BtnAdd();               //09
-                       document.getElementsByName("item_nm")[i].value = value[5];                  
+                       document.getElementsByName("item_nm")[i].value = value[9];                  
                                                           //10 
-                       document.getElementsByName("qty")[i].value     = value[6];
-                       document.getElementsByName("rate")[i].value    = value[7];
-                       document.getElementsByName("discount")[i].value     = value[8];
-		       document.getElementsByName("amt")[i].value     = value[9];                  }
+                       document.getElementsByName("qty")[i].value     = value[10];
+                       document.getElementsByName("rate")[i].value    = value[11];
+                       document.getElementsByName("discount")[i].value     = value[12];
+		       document.getElementsByName("amt")[i].value     = value[13];                  }
                   i = i + 1;
             });
 	    GetTotal();  
