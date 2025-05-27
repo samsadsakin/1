@@ -39,45 +39,7 @@ function BtnAdd()
     
 }
 
-function Search()
-{
-        var no = $('#invno').val();                      //01
-        $.getJSON("https://script.google.com/macros/s/AKfycbx63yquYv7rYdosPqffETw_NRl13J2BmdAxjC2zctTbsG8AHql7MCc942sVfXvG2g/exec?page=search&no="+no, 
-        function (data) {                                 //02
-          if (data == "NOT FOUND") {                      //03
-            alert('Invoice No. Not Found...');
-          }
-          else {                                          //04
-            var record = data;
-            var i = 0;
-            $.each(record, function(key, value) {         //05
-                  if (i == 0) {                           //06
-                      var dt = value[1].substring(0,10);  //07
-                      document.getElementsByName("inv_dt")[0].value = dt;
-                      document.getElementsByName("inv_no")[0].value = value[1];
-                      document.getElementsByName("cust_nm")[0].value = value[2];
-                      document.getElementsByName("cust_num")[0].value = value[3];
-		      document.getElementsByName("cust_info")[0].value = value[4];  
-		      document.getElementsByName("fGST")[0].value = value[5];
-                      document.getElementsByName("due")[0].value = value[6];
-		      
 
-			  
-                  }
-                  else {                                  //08  
-                       if (i > 1) BtnAdd();               //09
-                       document.getElementsByName("item_nm")[i].value = value[9];                  
-                                                          //10 
-                       document.getElementsByName("qty")[i].value     = value[10];
-                       document.getElementsByName("rate")[i].value    = value[11];
-                       document.getElementsByName("discount")[i].value     = value[12];
-		       document.getElementsByName("amt")[i].value     = value[13];                  }
-                  i = i + 1;
-            });
-	    GetTotal();  
-          }
-        });
-}
 function BtnDel(v)
 {
     /*Delete Button*/
@@ -161,7 +123,7 @@ function SetCurrentDate()
 
 function MaxInv()
 {
-        $.getJSON("https://script.google.com/macros/s/AKfycbx63yquYv7rYdosPqffETw_NRl13J2BmdAxjC2zctTbsG8AHql7MCc942sVfXvG2g/exec?page=max", 
+        $.getJSON("https://script.google.com/macros/s/AKfycbyptmIv3M_yVsByLKPZ_DTO3v4Li7znI88_TePfr9dXTqiV9x5WAZEdsA_MhGAWOEV6/exec?page=max", 
         function (data) {
             
              $('input[name="invno"]').val(data);
@@ -172,7 +134,7 @@ function MaxInv()
 }
 function FillDataList()
 {
-        $.getJSON("https://script.google.com/macros/s/AKfycbzau8k7sid8DUKmRhlWE0ZwMSetT9D2k-k0bOgL7aUbFsTEMO2ykLItPodBAXOfUYlu/exec?page=dropdown", 
+        $.getJSON("https://script.google.com/macros/s/AKfycbyptmIv3M_yVsByLKPZ_DTO3v4Li7znI88_TePfr9dXTqiV9x5WAZEdsA_MhGAWOEV6/exec?page=dropdown", 
         function (data) {                              //01
           var Options="";                              
           $.each(data, function(key, value)            //02
@@ -185,7 +147,7 @@ function FillDataList()
 function GetRate(v) { //01
     var index = $(v).parent().parent().index();  //02
     var Item = $(v).val(); //03
-    $.getJSON("https://script.google.com/macros/s/AKfycbzau8k7sid8DUKmRhlWE0ZwMSetT9D2k-k0bOgL7aUbFsTEMO2ykLItPodBAXOfUYlu/exec?page=getrate&no="+Item,
+    $.getJSON("https://script.google.com/macros/s/AKfycbyptmIv3M_yVsByLKPZ_DTO3v4Li7znI88_TePfr9dXTqiV9x5WAZEdsA_MhGAWOEV6/exec?page=getrate&no="+Item,
     function (data) { //04
     if (data > 0) {
     document.getElementsByName("rate")[index].value = data;	//05
@@ -213,7 +175,7 @@ function GetRate(v) { //01
   </head>
   <body>
     <div class="container">
-      <form method="post" action="https://script.google.com/macros/s/AKfycbzFSt6OrRoBUHYWp1QOQN7VODd12h-YjzPFujtTKo8eKcLj9YeAPDns2RrU_fRfrqas/exec">
+      <form method="post" action="https://script.google.com/macros/s/AKfycbyptmIv3M_yVsByLKPZ_DTO3v4Li7znI88_TePfr9dXTqiV9x5WAZEdsA_MhGAWOEV6/exec">
           <div class="card-header text-center">
             <h4>Sakin Pharmesi Kemo</h4>
           </div>
