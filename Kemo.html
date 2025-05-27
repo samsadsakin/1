@@ -41,7 +41,7 @@ function BtnAdd()
 
 function Search()
 {
-        var no = $('#inv_no').val();                      //01
+        var no = $('#invno').val();                      //01
         $.getJSON("https://script.google.com/macros/s/AKfycbyxk3kwxWhyBbTMovmsceLmn3iiy6FrrjQr2QFiKjXXyWOUob1-pRyMRCggenyF9b6j/exec?page=search&no="+no, 
         function (data) {                                 //02
           if (data == "NOT FOUND") {                      //03
@@ -222,22 +222,22 @@ function GetRate(v) { //01
               <div class="col-8">
                 <div class="input-group mb-3">
                   <span class="input-group-text">Customer</span>
-                  <input type="text" class="form-control" name="cust_nm" id="cust_nm" placeholder="Customer Name">
+                  <input type="text" class="form-control" name="cust_nm"  placeholder="Customer Name">
                 </div>
                 <div class="input-group mb-3">
                   <span class="input-group-text">Cust.Num.</span>
-                  <input type="text" class="form-control" name="cust_info" id="cust_num" placeholder="Phone Number">
+                  <input type="text" class="form-control" name="cust_num"  placeholder="Phone Number">
                 </div>
 		<div class="input-group mb-3">
                   <span class="input-group-text">Cust.Info.</span>
-                  <input type="text" class="form-control" name="cust_info" id="cust_info" placeholder="Address">
+                  <input type="text" class="form-control" name="cust_info"  placeholder="Address">
                 </div>
 		      
               </div>
               <div class="col-4">
                 <div class="input-group mb-3">
                   <span class="input-group-text">Inv. No</span>
-                  <input type="text" class="form-control" name="invno" placeholder="Invoice No" id="invno" autocomplete="off">
+                  <input type="text" class="form-control" name="invno" placeholder="Invoice No"  autocomplete="off">
                   <div class="input-group-append">
                      <button class="btn btn-outline-secondary" type="button" onclick="Search();"><i class="bi bi-search"></i></button>. 
 			  
