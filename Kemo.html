@@ -39,7 +39,7 @@ function BtnAdd()
     
 }
 
-nction Search()
+function Search()
 {
         var no = $('#inv_no').val();                      //01
         $.getJSON("AppScriptExcec?page=search&no="+no, 
@@ -207,7 +207,7 @@ function GetRate(v) { //01
   </head>
   <body>
     <div class="container">
-      <form method="post" action="https://script.google.com/macros/s/AKfycbzau8k7sid8DUKmRhlWE0ZwMSetT9D2k-k0bOgL7aUbFsTEMO2ykLItPodBAXOfUYlu/exec">
+      <form method="post" action="https://script.google.com/macros/s/AKfycbwJl0-KB_KzU4-Ou6wAb3QQ-oUGjeBpm7IWK4fMLsIKa_Wd3z7umkaw9pDbx-amriKV/exec">
           <div class="card-header text-center">
             <h4>Sakin Pharmesi Kemo</h4>
           </div>
@@ -219,10 +219,14 @@ function GetRate(v) { //01
                   <input type="text" class="form-control" name="cust_nm" id="cust_nm" placeholder="Customer Name">
                 </div>
                 <div class="input-group mb-3">
-                  <span class="input-group-text">Cust.Info.</span>
-                  <input type="text" class="form-control" name="cust_info" id="cust_info" placeholder="Phone Number/Address">
+                  <span class="input-group-text">Cust.Num.</span>
+                  <input type="text" class="form-control" name="cust_info" id="cust_num" placeholder="Phone Number">
                 </div>
-                
+		<div class="input-group mb-3">
+                  <span class="input-group-text">Cust.Info.</span>
+                  <input type="text" class="form-control" name="cust_info" id="cust_info" placeholder="Address">
+                </div>
+		      
               </div>
               <div class="col-4">
                 <div class="input-group mb-3">
