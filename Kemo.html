@@ -236,10 +236,10 @@ function GetRate(v) { //01
                   <th class="text-end">inv.</th>                                    
                   <th>SL</th>                  
                   <th width="35%">Medicine</th>
-                  <th class="text-end">Quantity</th>
-                  <th class="text-end">__Rate__</th>
-                  <th class="text-end">Dis%</th>
-                  <th class="text-end">Amount</th>
+                  <th width="10%" class="text-end">Quantity</th>
+                  <th width="20%" class="text-end">Rate</th>
+                  <th width="5%" class="text-end">Dis%</th>
+                  <th width="20%" class="text-end">Amount</th>
                   <th class="NoPrint"></th>
                 </tr>
               </thead>
@@ -248,12 +248,12 @@ function GetRate(v) { //01
                  <td><input type="number" class="form-control text-end" name="invno" ></td>
                   
                   <th scope="row">1</th>
-                  <td width="30%">
+                  <td width="35%">
                     <input class="form-control" name="item_nm" list="mylist" autocomplete="off" onchange="GetRate(this)">
                     <datalist id="mylist"></datalist>
                   </td>
                   <td><input type="number" class="form-control text-end" name="qty" onchange="Calc(this);"></td>
-                  <td width="10%"><input type="text" class="form-control text-end" name="rate" onchange="Calc(this);"></td>
+                  <td ><input type="text" class="form-control text-end" name="rate" onchange="Calc(this);"></td>
                   <td><input type="text" class="form-control text-end" name="discount" onchange="Calc(this)"></td>
                   <td><input type="number" class="form-control text-end" name="amt" value="0" readonly></td>
                   <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick="BtnDel(this)">X</button></td>
