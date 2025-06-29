@@ -248,12 +248,12 @@ function GetRate(v) { //01
                  <td><input type="number" class="form-control text-end" name="invno" ></td>
                   
                   <th scope="row">1</th>
-                  <td width="38%">
+                  <td width="30%">
                     <input class="form-control" name="item_nm" list="mylist" autocomplete="off" onchange="GetRate(this)">
                     <datalist id="mylist"></datalist>
                   </td>
                   <td><input type="number" class="form-control text-end" name="qty" onchange="Calc(this);"></td>
-                  <td><input type="text" class="form-control text-end" name="rate" onchange="Calc(this);"></td>
+                  <td width="10%"><input type="text" class="form-control text-end" name="rate" onchange="Calc(this);"></td>
                   <td><input type="text" class="form-control text-end" name="discount" onchange="Calc(this)"></td>
                   <td><input type="number" class="form-control text-end" name="amt" value="0" readonly></td>
                   <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick="BtnDel(this)">X</button></td>
