@@ -1,1 +1,357 @@
 
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Samsads Inventory Software</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+
+    <!-- CSS for Invoice -->
+    <style>
+	
+.input-group-text {
+   width: 85px;
+}   
+     
+	    
+    </style>  
+	  
+    <!-- jQuery CDN (only include once) -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+    <!-- Invoice Scripts Js -->
+    <script> 
+      
+
+function BtnAdd()
+{
+    /*Add Button*/
+    var v = $("#TRow").clone().appendTo("#TBody") ;
+   /* $(v).find("input" ).val('');*/
+    $(v).removeClass("d-none");
+    $(v).find("th").first().html($('#TBody tr').length - 1);
+
+    
+    
+}
+
+
+function BtnDel(v)
+{
+    /*Delete Button*/
+       $(v).parent().parent().remove(); 
+       GetTotal();
+
+        $("#TBody").find("tr").each(
+        function(index)
+        {
+           $(this).find("th").first().html(index);
+        }
+
+       );
+}
+
+function Calc(v)
+{
+    /*Detail Calculation Each Row*/
+    var index = $(v).parent().parent().index();
+    
+    var qty = document.getElementsByName("qty")[index].value;
+    var rate = document.getElementsByName("rate")[index].value;
+    var discount=document.getElementsByName("discount")[index].value;
+    var  percent=1/100;
+    var char= qty * rate * discount * percent;
+    var amt= (qty * rate) - char;
+    document.getElementsByName("amt")[index].value = amt;
+
+    GetTotal();
+}
+
+function GetTotal()
+{
+    /*Footer Calculation*/  
+    var sum=0;
+    var amts =  document.getElementsByName("amt");
+
+    for (let index = 0; index < amts.length; index++)
+    {
+        var amt = amts[index].value;
+        sum = +(sum) +  +(amt) ; 
+    }
+
+    document.getElementById("FTotal").value = sum;
+
+    var due =  document.getElementById("due").value;
+    var gst =  document.getElementById("fGST").value;
+    var net = +(sum) - +(due) - +(gst) ;
+    document.getElementById("fNet").value = net;
+}
+function SetCurrentDate()
+	{
+		const date = new Date();
+		console.log(date);
+
+		let d = date.getDate();
+		let m = date.getMonth() + 1;
+		let y = date.getFullYear();
+
+		if (d < 10) d = '0' + d;
+		if (m < 10) m = '0' + m;
+
+		let CurrDate = y + '-' + m + '-' + d;
+
+		 $('input[name="inv_dt"]').val(CurrDate); 
+		
+	} 
+    $(document).ready(function () {
+	
+        SetCurrentDate();
+        MaxInv();
+	FillDataList();        
+     
+       
+
+        
+        
+    
+    });
+
+
+function MaxInv()
+{
+        $.getJSON("https://script.google.com/macros/s/AKfycbwJtrLOkhiD2gWJ_5i53dfs8hBjZ0DMlC49PDlf-ttRTUsBI4UUFVjXXdwM32OBZMHHCQ/exec?page=max", 
+        function (data) {
+            
+             $('input[name="invno"]').val(data);
+	     
+             
+             
+        })
+}
+function FillDataList()
+{
+        $.getJSON("https://script.google.com/macros/s/AKfycbwJtrLOkhiD2gWJ_5i53dfs8hBjZ0DMlC49PDlf-ttRTUsBI4UUFVjXXdwM32OBZMHHCQ/exec?page=dropdown", 
+        function (data) {                              //01
+          var Options="";                              
+          $.each(data, function(key, value)            //02
+          {
+            Options = Options + '<option>' + value + '</option>';   //03
+          });
+          $("#mylist").append(Options);               //04
+        });
+}
+function GetRate(v) { //01
+    var index = $(v).parent().parent().index();  //02
+    var Item = $(v).val(); //03
+    $.getJSON("https://script.google.com/macros/s/AKfycbwJtrLOkhiD2gWJ_5i53dfs8hBjZ0DMlC49PDlf-ttRTUsBI4UUFVjXXdwM32OBZMHHCQ/exec?page=getrate&no="+Item,
+    function (data) { //04
+    if (data > 0) {
+    document.getElementsByName("rate")[index].value = data;	//05
+    Calc(v); //06
+    }
+    });
+}
+
+
+
+
+
+       
+    
+      
+    
+
+      
+    </script>
+    
+
+    <!-- PDF Tools -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <form method="post" action="https://script.google.com/macros/s/AKfycbwJtrLOkhiD2gWJ_5i53dfs8hBjZ0DMlC49PDlf-ttRTUsBI4UUFVjXXdwM32OBZMHHCQ/exec">
+          <div class="card-header text-center">
+            <h4>Sakin Pharmesi Kemo</h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-8">
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Customer</span>
+                  <input type="text" class="form-control" name="cust_nm"  placeholder="Customer Name">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Cust.Num.</span>
+                  <input type="text" class="form-control" name="cust_num"  placeholder="Phone Number">
+                </div>
+		<div class="input-group mb-3">
+                  <span class="input-group-text">Cust.Info.</span>
+                  <input type="text" class="form-control" name="cust_info"  placeholder="Address">
+                
+                  <a href="https://docs.google.com/spreadsheets/d/13KpVguFvnOGnTEKRzDUGfJn6-CEnv6diojmBXv_F7Iw/edit?gid=416515973#gid=416515973">
+                    <button type="button" class="btn btn-sm btn-warning">📩 Sms </button>
+                  </a>
+                  <a href="https://docs.google.com/spreadsheets/d/1IBwabjHR_ENJ8RjTqr97tioJvut9aB88OkKcG2qaAho/edit?gid=1899307929#gid=1899307929">
+                    <button type="button" class="btn btn-sm btn-warning">🖨️ Print </button>
+                  </a>
+		  
+                </div>
+		      
+              </div>
+              <div class="col-4">
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Inv. No</span>
+                  <input type="text" class="form-control" name="invno" id="invno"  placeholder="Invoice No"  autocomplete="off">
+                  
+                  
+                </div>
+		      
+		<div class="input-group mb-3">
+                  <span class="input-group-text">Inv. Date</span>
+                  <input type="date" class="form-control" name="inv_dt" id="inv_dt">
+                </div>
+		<div class="input-group mb-3">
+                  <a href="https://script.google.com/macros/s/AKfycbwljchEuO9V6Ke65QMf30tZqOpEZHIf8uJCXeBZKPgnDlKqB1UuDOXR80dXpwpWAbrZ/exec">
+                    <button type="button" class="btn btn-sm btn-success">Today's Sale</button>
+                  </a>
+                 
+			
+		
+                </div>
+                
+              </div>
+            </div>
+
+            <table class="table table-bordered">
+              <thead class="table-success">
+                <tr>
+                  <th class="text-end">inv.</th>                                    
+                  <th>SL</th>                  
+                  <th width="35%">Medicine</th>
+                  <th width="12%" class="text-end">Quantity</th>
+                  <th width="18%" class="text-end">Rate</th>
+                  <th width="8%" class="text-end">Dis%</th>
+                  <th width="18%" class="text-end">Amount</th>
+                  <th class="NoPrint"></th>
+                </tr>
+              </thead>
+              <tbody id="TBody">
+                <tr id="TRow" class="d-none">
+                 <td><input type="number" class="form-control text-end" name="invno" ></td>
+                  
+                  <th scope="row">1</th>
+                  <td width="35%">
+                    <input class="form-control" name="item_nm" list="mylist" autocomplete="off" onchange="GetRate(this)">
+                    <datalist id="mylist"></datalist>
+                  </td>
+                  <td><input type="number" class="form-control text-end" name="qty" onchange="Calc(this);"></td>
+                  <td ><input type="text" class="form-control text-end" name="rate" onchange="Calc(this);"></td>
+                  <td><input type="text" class="form-control text-end" name="discount" onchange="Calc(this)"></td>
+                  <td><input type="number" class="form-control text-end" name="amt" value="0" readonly></td>
+                  <td class="NoPrint"><button type="button" class="btn btn-sm btn-danger" onclick="BtnDel(this)">X</button></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="row">
+              <div class="col-4">
+                <div class="input-group mb-3">
+                  <button type="button" class="btn btn-sm btn-success" onclick="BtnAdd()">Add</button>
+                </div>
+           
+              </div>
+              <div class="col-8">
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Total</span>
+                  <input type="number" class="form-control text-end" id="FTotal" name="FTotal" readonly>
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Seller Dis.</span>
+                  <input type="number" class="form-control text-end" id="fNet" name="fNet" readonly>
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Due</span>
+                  <input type="number" class="form-control text-end" id="due" name="due" onchange="GetTotal()">
+                </div>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Paid Amt</span>
+                  <input type="number" class="form-control text-end" id="fGST" name="fGST" onchange="GetTotal()" required>
+                </div>
+                <div class="input-group mb-3">
+                 <button type="submit" class="btn btn-primary" id="submitBtn" onclick="disableSubmit(this, event)">Save</button>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+	  
+<script>
+function disableSubmit(btn, event) {
+  event.preventDefault(); // ডিফল্ট ফর্ম সাবমিশন বন্ধ করুন
+
+  const gstField = document.getElementById("fGST");
+  const invnoField = document.querySelector('input[name="invno"]');
+
+  if (!invnoField.value.trim()) {
+    alert("Invoice Number এর জন্য অপেক্ষা করুন ");
+    invnoField.focus();
+    return;
+  }
+
+  if (!gstField.value.trim()) {
+    alert("Paid Amt পূরণ করুন ");
+    gstField.focus();
+    return;
+  }
+
+  btn.disabled = true;
+  btn.innerText = 'Saving...';
+
+  const form = btn.form;
+  const formData = new FormData(form);
+
+  fetch(form.action, {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors' // CORS সমস্যা এড়াতে
+  })
+  .then(() => {
+    alert("✅ ইনভয়েস সফলভাবে সংরক্ষণ করা হয়েছে");
+    
+    // ✅ 1.5 সেকেন্ড পরে পেজ রিলোড
+    setTimeout(() => {
+      location.reload();
+    }, 1500);
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("❌ ডেটা পাঠাতে সমস্যা হয়েছে");
+  })
+  .finally(() => {
+    btn.disabled = false;
+    btn.innerText = 'Save';
+  });
+}
+</script>
+
+
+
+
+
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  </body>
+</html>
