@@ -124,7 +124,7 @@ function SetCurrentDate()
 
 function MaxInv()
 {
-        $.getJSON("https://script.google.com/macros/s/AKfycbwJtrLOkhiD2gWJ_5i53dfs8hBjZ0DMlC49PDlf-ttRTUsBI4UUFVjXXdwM32OBZMHHCQ/exec?page=max", 
+        $.getJSON("https://script.google.com/macros/s/AKfycbybZqPRTtOKXTzTVBThI_OO-HkMojgp2iIDpQNa628zGzs-peq4MiCFOeeNwQ1vSbif9w/exec?page=max", 
         function (data) {
             
              $('input[name="invno"]').val(data);
@@ -135,7 +135,7 @@ function MaxInv()
 }
 function FillDataList()
 {
-        $.getJSON("https://script.google.com/macros/s/AKfycbwJtrLOkhiD2gWJ_5i53dfs8hBjZ0DMlC49PDlf-ttRTUsBI4UUFVjXXdwM32OBZMHHCQ/exec?page=dropdown", 
+        $.getJSON("https://script.google.com/macros/s/AKfycbybZqPRTtOKXTzTVBThI_OO-HkMojgp2iIDpQNa628zGzs-peq4MiCFOeeNwQ1vSbif9w/exec?page=dropdown", 
         function (data) {                              //01
           var Options="";                              
           $.each(data, function(key, value)            //02
@@ -148,7 +148,7 @@ function FillDataList()
 function GetRate(v) { //01
     var index = $(v).parent().parent().index();  //02
     var Item = $(v).val(); //03
-    $.getJSON("https://script.google.com/macros/s/AKfycbwJtrLOkhiD2gWJ_5i53dfs8hBjZ0DMlC49PDlf-ttRTUsBI4UUFVjXXdwM32OBZMHHCQ/exec?page=getrate&no="+Item,
+    $.getJSON("https://script.google.com/macros/s/AKfycbybZqPRTtOKXTzTVBThI_OO-HkMojgp2iIDpQNa628zGzs-peq4MiCFOeeNwQ1vSbif9w/exec?page=getrate&no="+Item,
     function (data) { //04
     if (data > 0) {
     document.getElementsByName("rate")[index].value = data;	//05
@@ -176,7 +176,7 @@ function GetRate(v) { //01
   </head>
   <body>
     <div class="container">
-      <form method="post" action="https://script.google.com/macros/s/AKfycbwJtrLOkhiD2gWJ_5i53dfs8hBjZ0DMlC49PDlf-ttRTUsBI4UUFVjXXdwM32OBZMHHCQ/exec">
+      <form method="post" action="https://script.google.com/macros/s/AKfycbybZqPRTtOKXTzTVBThI_OO-HkMojgp2iIDpQNa628zGzs-peq4MiCFOeeNwQ1vSbif9w/exec">
           <div class="card-header text-center">
             <h4>Sakin Pharmesi Kemo</h4>
           </div>
